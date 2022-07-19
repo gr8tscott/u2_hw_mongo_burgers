@@ -77,14 +77,18 @@ db.dropDatabase()
 // Bonus
 //recreate your burgers database and your burger collection
 //copy paste your insert burgers from above to reseed your database
-
+//done did it
 // Change the name of the key cheese to 'pumpkinSpice'
-
+db.burgers.updateMany({}, { $rename: { cheese: 'pumpkinSpice' } })
 // find all the burgers with ketchup (or another topping you used at least once)
-
+db.burgers.find({ toppings: 'ketchup' })
 // find all the burgers with pickles (or a topping you used more than once) and remove the pickles
-
+db.burgers.updateMany(
+  { toppings: 'pickles' },
+  { $pull: { toppings: 'pickles' } }
+)
 // add a topping of 'eggs' to all the beef burgers
 //note since this db is 'reset' there should be no veggie burgers, all beef burgers should still be intact
-
+db.burgers.updateMany({ protein: 'beef' }, { $push: { toppings: 'eggs' } })
 //Add a price to each burger, start with $5.00 for each burger
+db.burgers.updateMany({}, { $set: { price: '$5.00' } })
